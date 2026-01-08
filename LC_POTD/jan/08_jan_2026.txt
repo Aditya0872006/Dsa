@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int>> dp;
+    int helper(vector<int> &arr1,vector<int> &arr2,int i,int j)
+    {
+        if(i<0 || j<0) return INT_MIN;
+        if(dp[i][j]!=INT_MIN) return dp[i][j];
+        int take=arr1[i]*arr2[j];
+        int previos=helper(arr1,arr2,i-1,j-1);
+        if(previos!=INT_MIN) take = max(take , take+previos);
+        int skip1=helper(arr1,arr2,i-1,j);
+        int skip2=helper(arr1,arr2,i,j-1);
+        return dp[i][j]=max({take,skip1,skip2});
+    }
+    int maxDotProduct(vector<int>& nums1, vector<int>& nums2) 
+    {
+
+        int i=nums1.size()-1;
+        int j=nums2.size()-1;
+        dp.resize(i+1,vector<int>(j+1,INT_MIN));
+        return helper(nums1,nums2,i,j);
+        
+    }
+};
