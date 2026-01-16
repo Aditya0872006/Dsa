@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int maximizeSquareArea(int m, int n, vector<int>& hFences, vector<int>& vFences) {
+        const int MOD = 1e9 + 7;
+        
+        // Add boundaries to fences
+        hFences.push_back(1);
+        hFences.push_back(m);
+        vFences.push_back(1);
+        vFences.push_back(n);
+        
+        // Sort the fences
+        sort(hFences.begin(), hFences.end());
+        sort(vFences.begin(), vFences.end());
+        
+        // Find all possible heights (differences between horizontal fences)
+        unordered_set<int> possibleHeights;
+        for (int i = 0; i < hFences.size(); i++) {
+            for (int j = i + 1; j < hFences.size(); j++) {
+                possibleHeights.insert(hFences[j] - hFences[i]);
+            }
+        }
+        
+        // Find all possible widths (differences between vertical fences)
+        unordered_set<int> possibleWidths;
+        for (int i = 0; i < vFences.size(); i++) {
+            for (int j = i + 1; j < vFences.size(); j++) {
+                possibleWidths.insert(vFences[j] - vFences[i]);
+            }
+        }
+        
+        // Find maximum common dimension
+        int maxSide = -1;
+        for (int height : possibleHeights) {
+            if (possibleWidths.count(height)) {
+                maxSide = max(maxSide, height);
+            }
+        }
+        
+        // If no common dimension found, return -1
+        if (maxSide == -1) {
+            return -1;
+        }
+        
+        // Calculate area with modulo
+        long long area = (long long)maxSide * maxSide;
+        return area % MOD;
+    }
+};
