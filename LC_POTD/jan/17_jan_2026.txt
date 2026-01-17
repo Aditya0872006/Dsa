@@ -1,0 +1,10 @@
+long long largestSquareArea(vector<vector<int>>& lb, vector<vector<int>>& tr) {
+    int n = lb.size(), ans = 0;
+    for (int i = 0; i < n; i++)
+        for (int j = i + 1; j < n; j++) {
+            int w = max(0, min(tr[i][0], tr[j][0]) - max(lb[i][0], lb[j][0]));
+            int h = max(0, min(tr[i][1], tr[j][1]) - max(lb[i][1], lb[j][1]));
+            ans = max(ans, min(w, h));
+        }
+    return (long long)ans * ans;
+}
