@@ -1,0 +1,28 @@
+class Solution {
+public:
+    bool helper(unordered_map<char,int> &mpp)
+    {
+        auto it = mpp.begin();
+        int fre = it->second;
+
+        for(auto [_,f]:mpp)
+        {
+            if(f!=fre) return false;
+        }
+        return true;
+    }
+    int longestBalanced(string s) 
+    {
+        int ans=0,n=s.size();
+        for(int i=0; i<n; i++)
+        {
+            unordered_map<char,int> mpp;
+            for(int j=i; j<n; j++)
+            {
+                mpp[s[j]]++;
+                if(helper(mpp)) ans = max(ans,j-i+1);
+            }
+        }
+        return ans;
+    }
+};
