@@ -1,0 +1,24 @@
+class Solution {
+public:
+    double champagneTower(int poured, int row, int glass) 
+    {
+        vector<vector<double>> stack(row+1,vector<double>(row+1,0));
+        stack[0][0] = poured;
+
+        for(int i=0; i<row; i++)
+        {
+            for(int j=0; j<=i; j++)
+            {
+                if(stack[i][j]>1)
+                {
+                    double overFlow = (stack[i][j]-1.0)/2.0;
+                    stack[i+1][j+1]+=overFlow;
+                    stack[i+1][j] += overFlow;
+                    stack[i][j] = 1;
+                }
+            }
+        }
+        return min(1.0,stack[row][glass]);
+        
+    }
+};
