@@ -1,0 +1,28 @@
+class Solution {
+public:
+    string addBinary(string a, string b) 
+    {
+        int la = a.size(),lb=b.size();
+        int i=la-1,j=lb-1;
+        int carry = 0;
+        string ans = "";
+
+        while(carry || i>=0 || j>=0)
+        {
+            int first=0,second=0;
+            if(i>=0 && a[i] == '1') first = 1; 
+            if(j>=0  && b[j]=='1') second = 1;
+
+            int sum = carry + first + second;
+            carry = sum/2;
+            sum = sum %2;
+            ans+=to_string(sum);
+            i--;
+            j--;    
+        }
+
+        reverse(ans.begin(),ans.end());
+        
+        return ans;
+    }
+};
