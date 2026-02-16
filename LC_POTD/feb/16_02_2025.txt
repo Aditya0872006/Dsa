@@ -1,0 +1,34 @@
+class Solution {
+public:
+    string intTobit(int n)
+    {
+        string ans="";
+        while(n)
+        {
+            ans+=to_string(n%2);
+            n/=2;
+        }
+        while(ans.size()!=32)
+        ans.push_back('0');
+        return ans;
+    }
+    int bitToint(string s)
+    {
+        int i=0,ans=0;
+        for(int k=s.size()-1; k>=0; k--)
+        {
+            if(s[k] == '1') ans += pow(2,i);
+            i++;
+        }
+        return ans;
+    }
+    int reverseBits(int n) 
+    {
+        string temp = intTobit(n);
+        
+        cout<<temp<<endl;
+        int ans= bitToint(temp);
+        cout<<ans;
+        return ans;
+    }
+};
