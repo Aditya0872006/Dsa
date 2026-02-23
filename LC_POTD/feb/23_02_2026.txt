@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool hasAllCodes(string s, int k) 
+    {
+        int size = pow(2,k);
+        int n=s.size();
+        unordered_set<string> st;
+        
+            for(int j=0; j<n-k+1; j++)
+            {
+                string temp = s.substr(j,k);
+                st.insert(temp);
+            }
+        
+        for(auto ste:st) cout<<ste<<endl;
+        return st.size() == size;
+        
+    }
+};
