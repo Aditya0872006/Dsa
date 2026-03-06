@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool checkOnesSegment(string s) 
+    {
+        bool flag = false;
+        int c=0;
+        for(char ch:s)
+        {
+            if(ch == '0') flag=true;
+            else if(flag) return false;
+        }
+        return true;
+        
+    }
+};
