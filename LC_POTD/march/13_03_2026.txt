@@ -1,0 +1,42 @@
+class Solution {
+public:
+    bool isValid(int H,long long time,vector<int> &timeArr)
+    {
+        long long h=0;
+
+        for(int t:timeArr)
+        {
+            long long k = (time/t);
+
+            long long x=(-1 + sqrt(1+8*k))/2;
+
+            h+=x;
+        }
+        return h>=H;
+    }
+    long long minNumberOfSeconds(int H, vector<int>& workerTimes) 
+    {
+        int mini=INT_MAX;
+        for(int t:workerTimes) mini = min(t,mini);
+
+        long long e=mini*(1LL*H*(H+1))/2;
+
+        long long s=0;
+
+        long long ans=-1;
+
+        while(s<=e)
+        {
+            long long mid = (s+e)/2;
+
+            if(isValid(H,mid,workerTimes))
+            {
+                ans=mid;
+                e=mid-1;
+            }
+            else s=mid+1;
+        } 
+        return ans;
+        
+    }
+};
