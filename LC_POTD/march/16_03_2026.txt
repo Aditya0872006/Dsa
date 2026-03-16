@@ -1,0 +1,89 @@
+class Solution {
+public:
+    int findSum(vector<vector<int>> &grid,int l,int i,int j)
+    {
+        int sum = 0;
+        sum+=grid[i][j];
+        if(l==0) return sum;
+        int last = grid[i + 2*l][j];
+        int c=0;
+        int orgi=i,orgj=j;
+        while(c<l)
+        {
+            i++;
+            j--;
+            sum+=grid[i][j];
+            c++;
+        }
+        
+        c=0;
+        while(c<l)
+        {
+            i++;
+            j++;
+            sum+=grid[i][j];
+            c++;
+        }
+
+        c=0;
+        i=orgi;
+        j=orgj;
+
+        while(c<l)
+        {
+            i++;
+            j++;
+            sum+=grid[i][j];
+            c++;
+        }
+
+        c=0;
+
+        while(c<l)
+        {
+            i++;
+            j--;
+            sum+=grid[i][j];
+            c++;
+            
+        }
+        sum-=last;
+        
+        return sum;
+
+    }
+    vector<int> getBiggestThree(vector<vector<int>>& grid) 
+    {
+        int n=grid.size();
+        int m=grid[0].size();
+
+        set<int,greater<int>> s;
+
+        int maxL=min((n-1)/2,(m-1)/2);
+
+        for(int i=0; i<n; i++)
+        {
+            for(int j=0; j<m; j++)
+            {
+                for(int k=0; k<=maxL; k++)
+                {
+                    if(i+2*k<n && j-k>=0 && j+k<m)
+                    {
+                        int sz = findSum(grid,k,i,j);
+                       s.insert(sz);
+
+                        if(s.size() > 3) 
+                        {
+                            s.erase(prev(s.end()));
+                        }
+                    }
+                }
+            }
+        }
+
+        
+        vector<int> arr(s.begin(),s.end());
+        
+        return arr;
+    }
+};
